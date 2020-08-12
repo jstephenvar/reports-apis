@@ -1,0 +1,4 @@
+ReportsAPIs/.idea/*
+ReportsAPIs/venv/*
+ReportsAPIs/ReceiptGenerator/__pycache__/*
+**/__pycache__/*
