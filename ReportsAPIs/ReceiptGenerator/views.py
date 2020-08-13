@@ -1,13 +1,16 @@
+from django.core.serializers import serialize
+from django.core.serializers.json import DjangoJSONEncoder
 from django.shortcuts import render
 
 # Create your views here.
 
 from django.http.response import JsonResponse
+from django.core import serializers
 from rest_framework.parsers import JSONParser
 from rest_framework import status
 
-from ReceiptGenerator.models import Receipt
-from ReceiptGenerator.serializers import ReceiptSerializer
+from ReceiptGenerator.models import Receipt, Concept
+from ReceiptGenerator.serializers import ReceiptSerializer, ReceiptSerializerRequest
 from rest_framework.decorators import api_view
 
 
@@ -15,19 +18,18 @@ from rest_framework.decorators import api_view
 def receipt_list(request):
     if request.method == 'GET':
         receipts = Receipt.objects.all()
-        print(receipts)
         title = request.GET.get('title', None)
         if title is not None:
             receipts = receipts.filter(title__icontains=title)
-
         receipts_serializer = ReceiptSerializer(receipts, many=True)
-
         return JsonResponse(receipts_serializer.data, safe=False)
         # 'safe=False' for objects serialization
 
     elif request.method == 'POST':
         receipt_data = JSONParser().parse(request)
-        receipt_serializer = ReceiptSerializer(data=receipt_data)
+        receipt_serializer = ReceiptSerializerRequest(data=receipt_data)
+        print(receipt_serializer)
+
         if receipt_serializer.is_valid():
             receipt_serializer.save()
             return JsonResponse(receipt_serializer.data, status=status.HTTP_201_CREATED)
@@ -52,7 +54,7 @@ def receipt_detail(request, pk):
 
     elif request.method == 'PUT':
         receipt_data = JSONParser().parse(request)
-        receipt_serializer = ReceiptSerializer(receipt, data=receipt_data)
+        receipt_serializer = ReceiptSerializerRequest(receipt, data=receipt_data)
         if receipt_serializer.is_valid():
             receipt_serializer.save()
             return JsonResponse(receipt_serializer.data)
@@ -61,12 +63,3 @@ def receipt_detail(request, pk):
     elif request.method == 'DELETE':
         receipt.delete()
         return JsonResponse({'message': 'Receipt was deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)
-
-
-@api_view(['GET'])
-def receipt_list_published(request):
-    receipts = Receipt.objects.filter(published=True)
-
-    if request.method == 'GET':
-        receipts_serializer = ReceiptSerializer(receipts, many=True)
-        return JsonResponse(receipts_serializer.data, safe=False)

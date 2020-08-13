@@ -1,34 +1,50 @@
 from rest_framework import serializers
-from ReceiptGenerator.models import Value, Concept, Receipt
+from ReceiptGenerator.models import Price, Concept, Receipt
 
 
-class ValueSerializer(serializers.ModelSerializer):
+class PriceSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Value
-        fields = ('id',
+        model = Price
+        fields = ['id',
                   'title',
+                  'value',
                   'rate',
                   'creation_date',
-                  'last_modified',)
+                  'last_modified']
 
 
 class ConceptSerializer(serializers.ModelSerializer):
+    price = PriceSerializer(read_only=True)
+
     class Meta:
         model = Concept
-        fields = ('id',
+        fields = ['id',
                   'name',
                   'description',
                   'creation_date',
                   'last_modified',
-                  'value',)
+                  'price']
 
 
 class ReceiptSerializer(serializers.ModelSerializer):
+    concept = ConceptSerializer(read_only=True)
+
     class Meta:
         model = Receipt
-        fields = ('id',
+        fields = ['id',
                   'title',
                   'description',
                   'creation_date',
                   'last_modified',
-                  'concept',)
+                  'concept']
+
+
+class ReceiptSerializerRequest(serializers.ModelSerializer):
+    class Meta:
+        model = Receipt
+        fields = ['id',
+                  'title',
+                  'description',
+                  'creation_date',
+                  'last_modified',
+                  'concept']
