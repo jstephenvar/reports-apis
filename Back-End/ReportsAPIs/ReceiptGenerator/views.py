@@ -1,17 +1,12 @@
-from django.core.serializers import serialize
-from django.core.serializers.json import DjangoJSONEncoder
-from django.shortcuts import render
-
 # Create your views here.
 
 from django.http.response import JsonResponse
-from django.core import serializers
-from rest_framework.parsers import JSONParser
 from rest_framework import status
-
-from ReceiptGenerator.models import Receipt, Concept
-from ReceiptGenerator.serializers import ReceiptSerializer, ReceiptSerializerRequest
 from rest_framework.decorators import api_view
+from rest_framework.parsers import JSONParser
+
+from ReceiptGenerator.models import Receipt
+from ReceiptGenerator.serializers import ReceiptSerializer, ReceiptSerializerRequest
 
 
 @api_view(['GET', 'POST', 'DELETE'])
@@ -21,6 +16,8 @@ def receipt_list(request):
         title = request.GET.get('title', None)
         if title is not None:
             receipts = receipts.filter(title__icontains=title)
+            # if receipts == receipts:
+            #    return JsonResponse({'message': 'The receipt does not exist'}, status=status.HTTP_404_NOT_FOUND)
         receipts_serializer = ReceiptSerializer(receipts, many=True)
         return JsonResponse(receipts_serializer.data, safe=False)
         # 'safe=False' for objects serialization
