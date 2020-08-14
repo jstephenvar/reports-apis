@@ -1,4 +1,4 @@
-ReportsAPIs/.idea/*
-ReportsAPIs/venv/*
-ReportsAPIs/ReceiptGenerator/__pycache__/*
+**/.idea/*
+**/venv/*
+**/__pycache__/*
 **/__pycache__/*
