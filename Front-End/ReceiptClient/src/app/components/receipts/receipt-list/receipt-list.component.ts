@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ReceiptService } from 'src/app/services/receipt.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-receipt-list',
@@ -13,7 +14,7 @@ export class ReceiptListComponent implements OnInit {
   currentIndex = -1;
   title = '';
 
-  constructor(private receiptService: ReceiptService) { }
+  constructor(private receiptService: ReceiptService, private router: Router) { }
 
   ngOnInit() {
     this.retrieveReceipts();
@@ -64,5 +65,9 @@ export class ReceiptListComponent implements OnInit {
         error => {
           console.log(error);
         });
+  }
+
+  addReceipt() {
+    this.router.navigateByUrl('/add');
   }
 }

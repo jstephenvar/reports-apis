@@ -3,9 +3,9 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AddReceiptComponent } from './components/add-receipt/add-receipt.component';
-import { ReceiptDetailsComponent } from './components/receipt-details/receipt-details.component';
-import { ReceiptListComponent } from './components/receipt-list/receipt-list.component';
+import { AddReceiptComponent } from './components/receipts/add-receipt/add-receipt.component';
+import { ReceiptDetailsComponent } from './components/receipts/receipt-details/receipt-details.component';
+import { ReceiptListComponent } from './components/receipts/receipt-list/receipt-list.component';
 
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';

@@ -1,8 +1,8 @@
 <div *ngIf="currentReceipt" class="edit-form">
-    <h4>Receipt</h4>
+    <h4>Recibo</h4>
     <form>
       <div class="form-group">
-        <label for="title">Title</label>
+        <label for="title">T&iacute;tulo</label>
         <input
           type="text"
           class="form-control"
@@ -12,7 +12,7 @@
         />
       </div>
       <div class="form-group">
-        <label for="description">Description</label>
+        <label for="description">Descripci&oacute;n</label>
         <input
           type="text"
           class="form-control"
@@ -23,25 +23,15 @@
       </div>
   
       <div class="form-group">
-        <label><strong>Value:</strong></label>
-        {{ currentReceipt.published ? "Published" : "currentReceipt" }}
+        <label for="description">Concept</label>
+        <ul class="list-group">
+          <li class="list-group-item" *ngFor="let receipt of receipts; let i = index" [class.active]="i == currentIndex"
+            (click)="setActiveReceipt(receipt, i)">
+            {{ receipt.id + " - " + receipt.title }}
+          </li>
+        </ul>
       </div>
     </form>
-  
-    <button
-      class="badge badge-primary mr-2"
-      *ngIf="currentReceipt.published"
-      (click)="updatePublished(false)"
-    >
-      UnPublish
-    </button>
-    <button
-      *ngIf="!currentReceipt.published"
-      class="badge badge-primary mr-2"
-      (click)="updatePublished(true)"
-    >
-      Publish
-    </button>
   
     <button class="badge badge-danger mr-2" (click)="deleteReceipt()">
       Delete

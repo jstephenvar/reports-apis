@@ -33,24 +33,6 @@ export class ReceiptDetailsComponent implements OnInit {
         });
   }
 
-  updatePublished(status) {
-    const data = {
-      title: this.currentReceipt.title,
-      description: this.currentReceipt.description,
-      published: status
-    };
-
-    this.receiptService.update(this.currentReceipt.id, data)
-      .subscribe(
-        response => {
-          this.currentReceipt.published = status;
-          console.log(response);
-        },
-        error => {
-          console.log(error);
-        });
-  }
-
   updateReceipt() {
     this.receiptService.update(this.currentReceipt.id, this.currentReceipt)
       .subscribe(

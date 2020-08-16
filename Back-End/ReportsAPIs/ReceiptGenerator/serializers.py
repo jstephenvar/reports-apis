@@ -26,6 +26,12 @@ class ConceptSerializer(serializers.ModelSerializer):
                   'price']
 
 
+class ConceptSerializerRequest(serializers.ModelSerializer):
+    class Meta:
+        model = Concept
+        fields = '__all__'
+
+
 class ReceiptSerializer(serializers.ModelSerializer):
     concept = ConceptSerializer(read_only=True)
 

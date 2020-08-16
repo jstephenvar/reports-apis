@@ -1,0 +1,76 @@
+<div class="list row">
+  <div class="col-md-8">
+    <h4>
+      <small class="font-weight-normal text-info">Buscar por n&uacute;mero de recibo:</small>
+    </h4>
+    <div class="input-group mb-3">
+      <input type="text" class="form-control" placeholder="Search by Id" [(ngModel)]="title" />
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="button" (click)="searchTitle()">
+          Search
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <h4>
+      <small class="font-weight-normal text-info">Lista de Recibos:</small>
+    </h4>
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let receipt of receipts; let i = index" [class.active]="i == currentIndex"
+        (click)="setActiveReceipt(receipt, i)">
+        {{ receipt.id + " - " + receipt.title }}
+      </li>
+    </ul>
+
+    <div *ngIf="!currentReceipt">
+      <br />
+      <p>Por favor seleccione un recibo dando click...</p>
+    </div>
+
+    <button class="m-3 btn btn-sm btn-danger" (click)="removeAllReceipts()">
+      Eliminar todos
+    </button>
+    <button class="m-3 btn btn-sm btn-success" (click)="addReceipt()">
+      Agregar recibo
+    </button>
+    
+
+  </div>
+  <div class="col-md-6">
+    <div *ngIf="currentReceipt">
+      <table class="table">
+        <thead>
+          <tr>
+            <th class="text-center" colspan="2">Recibo No. {{ currentReceipt.id }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">T&iacute;tulo</th>
+            <td>{{ currentReceipt.title }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Descripci&oacute;n</th>
+            <td>{{ currentReceipt.description }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Valor</th>
+            <td>{{currentReceipt.concept.price.value |currency }}</td>
+          </tr>
+          <tr>
+            <th scope="row">TRM</th>
+            <td>{{ currentReceipt.concept.price.rate }}</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <th class="text-center" colspan="2"><a class="badge badge-warning" href="/receipts/{{ currentReceipt.id }}">
+                Edit
+              </a></th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</div>
