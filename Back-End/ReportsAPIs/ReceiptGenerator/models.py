@@ -26,7 +26,7 @@ class Concept(models.Model):
     last_modified = models.DateField(blank=True, null=True)
     price = models.OneToOneField(
         Price,
-        on_delete=models.CASCADE,
+        on_delete=models.CASCADE
     )
 
     class Meta:
@@ -42,7 +42,7 @@ class Receipt(models.Model):
     description = models.CharField(max_length=200, blank=False, default='')
     creation_date = models.DateField()
     last_modified = models.DateField(blank=True, null=True)
-    concept = models.ForeignKey(Concept, related_name="receipt", on_delete=models.CASCADE, )
+    concept = models.ForeignKey(Concept, related_name="receipt", on_delete=models.PROTECT)
 
     class Meta:
         db_table = "udes_receipt"

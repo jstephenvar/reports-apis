@@ -1,0 +1,49 @@
+<div *ngIf="currentConcept" class="edit-form">
+    <h4>Recibo</h4>
+    <form>
+      <div class="form-group">
+        <label for="title">T&iacute;tulo</label>
+        <input
+          type="text"
+          class="form-control"
+          id="title"
+          [(ngModel)]="currentConcept.title"
+          name="title"
+        />
+      </div>
+      <div class="form-group">
+        <label for="description">Descripci&oacute;n</label>
+        <input
+          type="text"
+          class="form-control"
+          id="description"
+          [(ngModel)]="currentConcept.description"
+          name="description"
+        />
+      </div>
+  
+      <div class="form-group">
+        <label for="description">Concept</label>
+        <ul class="list-group">
+          <li class="list-group-item" *ngFor="let concept of concepts; let i = index" [class.active]="i == currentIndex"
+            (click)="setActiveConcept(concept, i)">
+            {{ concept.id + " - " + concept.title }}
+          </li>
+        </ul>
+      </div>
+    </form>
+  
+    <button class="badge badge-danger mr-2" (click)="deleteConcept()">
+      Delete
+    </button>
+  
+    <button type="submit" class="badge badge-success" (click)="updateConcept()">
+      Update
+    </button>
+    <p>{{ message }}</p>
+  </div>
+  
+  <div *ngIf="!currentConcept">
+    <br />
+    <p>Cannot access this Concept...</p>
+  </div>

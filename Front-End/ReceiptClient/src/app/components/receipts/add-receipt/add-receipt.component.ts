@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ReceiptService } from 'src/app/services/receipt.service';
+import { ReceiptService } from 'src/app/services/receipt/receipt.service';
 
 @Component({
   selector: 'app-add-receipt',

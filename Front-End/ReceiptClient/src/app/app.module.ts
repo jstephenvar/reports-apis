@@ -6,8 +6,11 @@ import { AppComponent } from './app.component';
 import { AddReceiptComponent } from './components/receipts/add-receipt/add-receipt.component';
 import { ReceiptDetailsComponent } from './components/receipts/receipt-details/receipt-details.component';
 import { ReceiptListComponent } from './components/receipts/receipt-list/receipt-list.component';
+import { AddConceptComponent } from './components/concepts/add-concept/add-concept.component';
+import { ConceptDetailsComponent } from './components/concepts/concept-details/concept-details.component';
+import { ConceptListComponent } from './components/concepts/concept-list/concept-list.component';
 
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
@@ -15,13 +18,17 @@ import { HttpClientModule } from '@angular/common/http';
     AppComponent,
     AddReceiptComponent,
     ReceiptDetailsComponent,
-    ReceiptListComponent
+    ReceiptListComponent,
+    AddConceptComponent,
+    ConceptDetailsComponent,
+    ConceptListComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

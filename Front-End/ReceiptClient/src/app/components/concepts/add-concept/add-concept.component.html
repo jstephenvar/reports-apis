@@ -1,0 +1,73 @@
+<div class="submit-form">
+  <div *ngIf="!submitted">
+    <h4>
+      <small class="text-center font-weight-normal text-info">Agregar Concepto</small>
+    </h4>
+    <br>
+    <form [formGroup]="addConceptForm" novalidate>
+      <div class="form-group">
+        <label for="name">Nombre</label>
+        <input minlength="1" type="text" class="form-control ng-invalid" id="name" [(ngModel)]="concept.name"
+          name="name" required formControlName="name" />
+        <div *ngIf="addConceptForm.controls['name'].invalid && addConceptForm.controls['name'].dirty" class="alert alert-danger">
+          <div *ngIf="addConceptForm.controls['name'].errors.required">
+            Campo obligatorio.
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="description">Descripci&oacute;n</label>
+        <input class="form-control" id="description" required [(ngModel)]="concept.description" name="concept"
+          formControlName="description" />
+        <div *ngIf="addConceptForm.controls['description'].invalid && addConceptForm.controls['description'].dirty"
+          class="alert alert-danger">
+          <div *ngIf="addConceptForm.controls['description'].errors.required">
+            Campo obligatorio.
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="title">T&iacute;tulo precio</label>
+        <input class="form-control" id="title" required [(ngModel)]="concept.price.title" name="title"
+          formControlName="title" />
+        <div *ngIf="addConceptForm.controls['title'].invalid && addConceptForm.controls['title'].dirty" class="alert alert-danger">
+          <div *ngIf="addConceptForm.controls['title'].errors.required">
+            Campo obligatorio.
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="value">Valor</label>
+        <input class="form-control" id="value" required [(ngModel)]="concept.price.value" name="value"
+          formControlName="value" />
+        <div *ngIf="addConceptForm.controls['value'].invalid && addConceptForm.controls['value'].dirty" class="alert alert-danger">
+          <div *ngIf="addConceptForm.controls['value'].errors.required">
+            Campo obligatorio.
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="rate">Tasa Representativa del Mercado (TRM)</label>
+        <input class="form-control" id="rate" required [(ngModel)]="concept.price.rate" name="rate"
+          formControlName="rate" />
+        <div *ngIf="addConceptForm.controls['rate'].invalid && addConceptForm.controls['rate'].dirty" class="alert alert-danger">
+          <div *ngIf="addConceptForm.controls['rate'].errors.required">
+            Campo obligatorio.
+          </div>
+        </div>
+      </div>
+
+      <button type="submit" [disabled]="addConceptForm.pristine || addConceptForm.invalid" (click)="saveConcept()"
+        class="btn btn-success">Submit</button>
+    </form>
+  </div>
+
+  <div *ngIf="submitted">
+    <h4>You submitted successfully!</h4>
+    <button class="btn btn-success" (click)="newConcept()">Add</button>
+  </div>
+</div>

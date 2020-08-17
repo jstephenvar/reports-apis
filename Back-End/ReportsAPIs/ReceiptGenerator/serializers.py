@@ -48,9 +48,4 @@ class ReceiptSerializer(serializers.ModelSerializer):
 class ReceiptSerializerRequest(serializers.ModelSerializer):
     class Meta:
         model = Receipt
-        fields = ['id',
-                  'title',
-                  'description',
-                  'creation_date',
-                  'last_modified',
-                  'concept']
+        fields = '__all__'
