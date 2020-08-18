@@ -1,0 +1,63 @@
+<div class="list row">
+  <div class="col-md-6">
+    <h4>
+      <small class="font-weight-normal text-info">Lista de Conceptos:</small>
+    </h4>
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let concept of concepts; let i = index" [class.active]="i == currentIndex"
+        (click)="setActiveConcept(concept, i)">
+        {{ concept.id + " - " + concept.name }}
+      </li>
+    </ul>
+
+    <div *ngIf="!currentConcept">
+      <br />
+      <p>Por favor seleccione un concepto dando click...</p>
+    </div>
+
+    <button class="m-3 btn btn-sm btn-danger" (click)="removeAllConcepts()">
+      Eliminar todos
+    </button>
+    <button class="m-3 btn btn-sm btn-success" (click)="addConcept()">
+      Agregar concepto
+    </button>
+
+
+  </div>
+  <div class="col-md-6">
+    <div *ngIf="currentConcept">
+      <table class="table">
+        <thead>
+          <tr>
+            <th class="text-center" colspan="2">Detalle Concepto Id [ {{ currentConcept.id }} ]</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Nombre</th>
+            <td>{{ currentConcept.name }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Descripci&oacute;n</th>
+            <td>{{ currentConcept.description }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Valor</th>
+            <td>{{currentConcept.price.value |currency }}</td>
+          </tr>
+          <tr>
+            <th scope="row">TRM</th>
+            <td>{{ currentConcept.price.rate }}</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <th class="text-center" colspan="2"><a class="badge badge-warning badge-secondary" href="/concepts/{{ currentConcept.id }}">
+                Editar
+              </a></th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</div>
