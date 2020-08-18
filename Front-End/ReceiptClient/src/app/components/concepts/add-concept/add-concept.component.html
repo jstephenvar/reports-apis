@@ -7,7 +7,7 @@
     <form [formGroup]="addConceptForm" novalidate>
       <div class="form-group">
         <label for="name">Nombre</label>
-        <input minlength="1" type="text" class="form-control ng-invalid" id="name" [(ngModel)]="concept.name"
+        <input type="text" class="form-control" id="name" [(ngModel)]="concept.name"
           name="name" required formControlName="name" />
         <div *ngIf="addConceptForm.controls['name'].invalid && addConceptForm.controls['name'].dirty" class="alert alert-danger">
           <div *ngIf="addConceptForm.controls['name'].errors.required">

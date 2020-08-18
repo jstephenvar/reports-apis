@@ -5,6 +5,7 @@ from django.db import Error
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.parsers import JSONParser
+from datetime import datetime
 
 from ReceiptGenerator.models import Receipt, Concept, Price
 from ReceiptGenerator.serializers import ReceiptSerializer, ReceiptSerializerRequest, ConceptSerializer, \
@@ -120,10 +121,14 @@ def concept_detail(request, pk):
             price = Price.objects.get(pk=price_data.get('id', None))
         except Receipt.DoesNotExist:
             return JsonResponse({'message': 'The price for update does not exist'}, status=status.HTTP_404_NOT_FOUND)
-        # Update price
+        # Update price last modified
+        price_data['last_modified'] = datetime.today().strftime('%Y-%m-%d')
         price_serializer = PriceSerializer(price, data=price_data)
+        # Update price
         if price_serializer.is_valid():
             price_serializer.save()
+            # Update concept last modified
+            concept_data['last_modified'] = datetime.today().strftime('%Y-%m-%d')
             # Extract serializer for concept
             concept_serializer = ConceptSerializer(concept, data=concept_data)
             # Update concept

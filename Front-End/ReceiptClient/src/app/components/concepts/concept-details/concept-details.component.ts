@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ConceptService } from 'src/app/services/concept/concept.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-concept-details',
@@ -10,11 +11,16 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class ConceptDetailsComponent implements OnInit {
   currentConcept = null;
   message = '';
+  editConceptForm: FormGroup;
+  submitted = false;
 
   constructor(
     private conceptService: ConceptService,
     private route: ActivatedRoute,
-    private router: Router) { }
+    private router: Router,
+    private fb: FormBuilder) {
+    this.editForm();
+  }
 
   ngOnInit() {
     this.message = '';
@@ -38,7 +44,8 @@ export class ConceptDetailsComponent implements OnInit {
       .subscribe(
         response => {
           console.log(response);
-          this.message = 'The concept was updated successfully!';
+          this.message = 'El concepto fue actualizado satisfactoriamente!';
+          this.submitted = true;
         },
         error => {
           console.log(error);
@@ -55,5 +62,15 @@ export class ConceptDetailsComponent implements OnInit {
         error => {
           console.log(error);
         });
+  }
+
+  editForm() {
+    this.editConceptForm = this.fb.group({
+      name: ['', Validators.required],
+      description: ['', Validators.required],
+      title: ['', Validators.required],
+      value: ['', Validators.required],
+      rate: ['', Validators.required]
+    });
   }
 }

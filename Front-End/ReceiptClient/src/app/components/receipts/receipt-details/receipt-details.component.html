@@ -1,49 +1,57 @@
-<div *ngIf="currentReceipt" class="edit-form">
+<div *ngIf="!submitted">
+  <div *ngIf="currentReceipt" class="edit-form">
     <h4>Recibo</h4>
     <form>
       <div class="form-group">
         <label for="title">T&iacute;tulo</label>
-        <input
-          type="text"
-          class="form-control"
-          id="title"
-          [(ngModel)]="currentReceipt.title"
-          name="title"
-        />
+        <input type="text" class="form-control" id="title" [(ngModel)]="currentReceipt.title" name="title" />
       </div>
       <div class="form-group">
         <label for="description">Descripci&oacute;n</label>
-        <input
-          type="text"
-          class="form-control"
-          id="description"
-          [(ngModel)]="currentReceipt.description"
-          name="description"
-        />
+        <input type="text" class="form-control" id="description" [(ngModel)]="currentReceipt.description"
+          name="description" />
       </div>
-  
       <div class="form-group">
-        <label for="description">Concept</label>
-        <ul class="list-group">
-          <li class="list-group-item" *ngFor="let receipt of receipts; let i = index" [class.active]="i == currentIndex"
-            (click)="setActiveReceipt(receipt, i)">
-            {{ receipt.id + " - " + receipt.title }}
-          </li>
-        </ul>
+        <label for="conceptSelected">Concept</label>
+        <select class="form-control" id="conceptSelected" [(ngModel)]="conceptSelected" name="conceptSelected"
+          (change)="setActiveConcept()">
+          <option [ngValue]="null" disabled>{{currentConcept.id + " - " + currentConcept.name}}
+          </option>
+          <option [value]="concept.id" *ngFor="let concept of concepts; let i = index"
+            [disabled]="concept.id===currentReceipt.concept.id">
+            {{ concept.id + " - " + concept.name }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="value">Valor del concepto actual o seleccionado</label>
+        <input type="text" disabled class="form-control" id="value" [ngModel]="currentPriceValue | currency"
+          name="value" />
+      </div>
+      <div class="form-group">
+        <label for="rate">Valor TRM del concepto actual o seleccionado</label>
+        <input type="text" disabled class="form-control" id="rate" [ngModel]="currentTRM" name="rate" />
       </div>
     </form>
-  
+
     <button class="badge badge-danger mr-2" (click)="deleteReceipt()">
-      Delete
+      Eliminar
     </button>
-  
+
     <button type="submit" class="badge badge-success" (click)="updateReceipt()">
-      Update
+      Actualizar
     </button>
-    <p>{{ message }}</p>
   </div>
-  
+
   <div *ngIf="!currentReceipt">
-    <br />
-    <p>Cannot access this Receipt...</p>
+    <p>
+      <ngb-alert type="danger" *ngIf="!closed" (close)="closed=true">
+        No se puede acceder a este recibo...
+      </ngb-alert>
+    </p>
   </div>
+</div>
+<div *ngIf="submitted">
+  <h4>
+    <small class="text-center font-weight-normal text-info">{{ message }}</small>
+  </h4>
+</div>

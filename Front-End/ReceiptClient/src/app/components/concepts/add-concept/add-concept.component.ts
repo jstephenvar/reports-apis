@@ -50,9 +50,6 @@ export class AddConceptComponent implements OnInit {
       }
     };
 
-    console.log('data enviada');
-    console.log(data);
-
     this.conceptService.create(data)
       .subscribe(
         response => {

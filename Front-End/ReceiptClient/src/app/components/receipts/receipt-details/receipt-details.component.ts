@@ -1,3 +1,4 @@
+import { ConceptService } from './../../../services/concept/concept.service';
 import { Component, OnInit } from '@angular/core';
 import { ReceiptService } from 'src/app/services/receipt/receipt.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -8,17 +9,27 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./receipt-details.component.css']
 })
 export class ReceiptDetailsComponent implements OnInit {
-  currentReceipt = null;
+  currentReceipt: any;
   message = '';
+  concepts: any;
+  currentConcept: any;
+  currentPriceValue = null;
+  currentTRM = null;
+  currentIndex = -1;
+  conceptSelected = null;
+  submitted = false;
 
   constructor(
     private receiptService: ReceiptService,
     private route: ActivatedRoute,
-    private router: Router) { }
+    private router: Router,
+    private conceptService: ConceptService
+  ) { }
 
   ngOnInit() {
     this.message = '';
     this.getReceipt(this.route.snapshot.paramMap.get('id'));
+    this.retrieveConcepts();
   }
 
   getReceipt(id) {
@@ -27,6 +38,7 @@ export class ReceiptDetailsComponent implements OnInit {
         data => {
           this.currentReceipt = data;
           console.log(data);
+          this.setCurrentConcept();
         },
         error => {
           console.log(error);
@@ -38,11 +50,13 @@ export class ReceiptDetailsComponent implements OnInit {
       .subscribe(
         response => {
           console.log(response);
-          this.message = 'The receipt was updated successfully!';
+          this.message = 'El Recibo fue actualizado satisfactoriamente!';
+          this.submitted = true;
         },
         error => {
           console.log(error);
         });
+
   }
 
   deleteReceipt() {
@@ -55,5 +69,40 @@ export class ReceiptDetailsComponent implements OnInit {
         error => {
           console.log(error);
         });
+  }
+
+  retrieveConcepts() {
+    this.conceptService.getAll()
+      .subscribe(
+        data => {
+          this.concepts = data;
+          console.log(data);
+        },
+        error => {
+          console.log(error);
+        });
+  }
+
+  setCurrentConcept() {
+    this.currentConcept = this.currentReceipt.concept;
+    this.currentPriceValue = this.currentConcept.price.value;
+    this.currentTRM = this.currentConcept.price.rate;
+  }
+
+  refreshList() {
+    this.retrieveConcepts();
+    this.currentConcept = null;
+    this.currentIndex = -1;
+  }
+
+  setActiveConcept() {
+    this.concepts.forEach(concept => {
+      if (concept.id == this.conceptSelected) {
+        this.currentReceipt.concept = this.conceptSelected;
+        this.currentConcept = concept;
+        this.currentPriceValue = concept.price.value;
+        this.currentTRM = concept.price.rate;
+      }
+    });
   }
 }

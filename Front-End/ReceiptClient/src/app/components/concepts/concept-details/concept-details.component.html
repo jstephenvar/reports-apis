@@ -1,49 +1,83 @@
-<div *ngIf="currentConcept" class="edit-form">
-    <h4>Recibo</h4>
-    <form>
+<div *ngIf="!submitted">
+  <div *ngIf="currentConcept" class="edit-form">
+    <h4>Concepto</h4>
+    <form [formGroup]="editConceptForm" novalidate>
       <div class="form-group">
-        <label for="title">T&iacute;tulo</label>
-        <input
-          type="text"
-          class="form-control"
-          id="title"
-          [(ngModel)]="currentConcept.title"
-          name="title"
-        />
+        <label for="name">Nombre</label>
+        <input type="text" class="form-control ng-invalid" id="name" [(ngModel)]="currentConcept.name" name="name"
+          required formControlName="name" />
+        <div *ngIf="editConceptForm.controls['name'].invalid && editConceptForm.controls['name'].dirty"
+          class="alert alert-danger">
+          <div *ngIf="editConceptForm.controls['name'].errors.required">
+            Campo obligatorio.
+          </div>
+        </div>
       </div>
       <div class="form-group">
         <label for="description">Descripci&oacute;n</label>
-        <input
-          type="text"
-          class="form-control"
-          id="description"
-          [(ngModel)]="currentConcept.description"
-          name="description"
-        />
+        <input class="form-control" id="description" required [(ngModel)]="currentConcept.description" name="concept"
+          formControlName="description" />
+        <div *ngIf="editConceptForm.controls['description'].invalid && editConceptForm.controls['description'].dirty"
+          class="alert alert-danger">
+          <div *ngIf="editConceptForm.controls['description'].errors.required">
+            Campo obligatorio.
+          </div>
+        </div>
       </div>
-  
+
       <div class="form-group">
-        <label for="description">Concept</label>
-        <ul class="list-group">
-          <li class="list-group-item" *ngFor="let concept of concepts; let i = index" [class.active]="i == currentIndex"
-            (click)="setActiveConcept(concept, i)">
-            {{ concept.id + " - " + concept.title }}
-          </li>
-        </ul>
+        <label for="title">T&iacute;tulo precio</label>
+        <input class="form-control" id="title" required [(ngModel)]="currentConcept.price.title" name="title"
+          formControlName="title" />
+        <div *ngIf="editConceptForm.controls['title'].invalid && editConceptForm.controls['title'].dirty"
+          class="alert alert-danger">
+          <div *ngIf="editConceptForm.controls['title'].errors.required">
+            Campo obligatorio.
+          </div>
+        </div>
       </div>
+
+      <div class="form-group">
+        <label for="value">Valor</label>
+        <input type="number" min="1.00" step="any" class="form-control" id="value" required
+          [(ngModel)]="currentConcept.price.value" name="value" formControlName="value" />
+        <div *ngIf="editConceptForm.controls['value'].invalid && editConceptForm.controls['value'].dirty"
+          class="alert alert-danger">
+          <div *ngIf="editConceptForm.controls['value'].errors.required">
+            Campo obligatorio.
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="rate">Tasa Representativa del Mercado (TRM)</label>
+        <input class="form-control" id="rate" required [(ngModel)]="currentConcept.price.rate" name="rate"
+          formControlName="rate" />
+        <div *ngIf="editConceptForm.controls['rate'].invalid && editConceptForm.controls['rate'].dirty"
+          class="alert alert-danger">
+          <div *ngIf="editConceptForm.controls['rate'].errors.required">
+            Campo obligatorio.
+          </div>
+        </div>
+      </div>
+
     </form>
-  
+
     <button class="badge badge-danger mr-2" (click)="deleteConcept()">
-      Delete
+      Borrar
     </button>
-  
+
     <button type="submit" class="badge badge-success" (click)="updateConcept()">
-      Update
+      Actualizar
     </button>
-    <p>{{ message }}</p>
   </div>
-  
   <div *ngIf="!currentConcept">
     <br />
     <p>Cannot access this Concept...</p>
   </div>
+</div>
+<div *ngIf="submitted">
+  <h4>
+    <small class="text-center font-weight-normal text-info">{{ message }}</small>
+  </h4>
+</div>
