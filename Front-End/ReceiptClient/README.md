@@ -1,27 +1,47 @@
-# ReceiptClient
+# Receipt Client API
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.5.
+## Getting Started
 
-## Development server
+Este proyecto fue construido con Angular 10 que corre sobre NodeJS.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+### Prerequisites
 
-## Code scaffolding
+ * Angular 10.0.5
+ * NodeJS 6.14.7
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Download project
 
-## Build
+`Para comenzar...`
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+* Se debe tener instalado NodeJs e instalar el cliente de [Angular](https://cli.angular.io/)
 
-## Running unit tests
+Clonar el proyecto:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```sh
+git clone https://github.com/jstephenvar/reports-apis.git
+```
 
-## Running end-to-end tests
+### Running project
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Para correr el proyecto vamos sobre el directorio de la aplicacion, ejecutar:
 
-## Further help
+```bash
+ng serve --port 8081
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+### Visualization
+
+Una vez el proyecto compile y suba se debe ingresar por la url ejemplo `http://localhost:8081/receipts`
+
+### Frameworks and Tools
+
+* [NodeJS](https://nodejs.org/) - Framework de Javascript
+* [Angular](https://angular.io/) - Plataforma para construir aplicaciones web y mobile.
+
+## Version
+
+Actual Version 0.1
+
+## Authors
+
+* Johan Stephen Vargas
