@@ -124,7 +124,7 @@ Ejemplo obtener todos los request:
     }]
     ```
   
- ![Para descargar las colecciones de Postman](https://www.getpostman.com/collections/1376ff807efe116ebbe4)
+ ![Clikc aca para descargar las colecciones de Postman](https://www.getpostman.com/collections/1376ff807efe116ebbe4)
 
 ### Frameworks and Tools
 
