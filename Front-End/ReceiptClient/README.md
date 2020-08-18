@@ -33,6 +33,14 @@ ng serve --port 8081
 
 Una vez el proyecto compile y suba se debe ingresar por la url ejemplo `http://localhost:8081/receipts`
 
+#### Recibos
+
+![Recibos](https://github.com/jstephenvar/reports-apis/blob/master/Front-End/images/receipts-visual.jpg)
+
+#### Conceptos
+
+![Conceptos](https://github.com/jstephenvar/reports-apis/blob/master/Front-End/images/concepts-visual.jpg)
+
 ### Frameworks and Tools
 
 * [NodeJS](https://nodejs.org/) - Framework de Javascript
